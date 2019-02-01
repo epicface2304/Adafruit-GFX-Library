@@ -186,6 +186,9 @@ void Adafruit_SPITFT::pushColor(uint16_t color) {
   endWrite();
 }
 
+void Adafruit_SPITFT::write16(uint16_t color) {
+  SPI_WRITE16(color);
+}
 
 void inline Adafruit_SPITFT::writePixel(uint16_t color){
     SPI_WRITE16(color);
