@@ -21,7 +21,22 @@ Recent Arduino IDE releases include the Library Manager for easy installation. O
 - 'fontconvert' folder contains a command-line tool for converting TTF fonts to Adafruit_GFX .h format.
 
 ---
+# What is this Fork?
 
+This is a fork which adds the function `write16(uint16_t)` which allows users to initiate extremely fast mass SPI transfers for RGB displays. I made this fork to be able to quickly transfer a RAM buffer from an ESP8266 to a SSD1351. Here's an example for copying ram quickly to a display using `write16`.
+
+```
+  tft.startWrite();
+
+  tft.setAddrWindow(0, 0, 128, 128);
+  
+  for (uint16_t i = 0; i < NUM_PIXELS; i++){
+    tft.write16(buf[i]);
+  }
+  
+  tft.endWrite();
+```
+The transfer takes approximately 40 ms (80MHz CPU, 16MHz SPI), as opposed to other methods which could take <100ms.
 ### Roadmap
 
 The PRIME DIRECTIVE is to maintain backward compatibility with existing Arduino sketches -- many are hosted elsewhere and don't track changes here, some are in print and can never be changed! This "little" library has grown organically over time and sometimes we paint ourselves into a design corner and just have to live with it or add ungainly workarounds.
